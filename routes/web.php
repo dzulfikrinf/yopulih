@@ -13,7 +13,8 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ArticleController;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,3 +55,13 @@ Route::get('videos/{id}', [VideoController::class, 'show']);
 
 Route::get('articles', [ArticleController::class, 'index']);
 Route::get('articles/{id}', [ArticleController::class, 'show']);
+
+Route::get('/auth/register', function () {return view('auth.register');});
+Route::post('/auth/register', [AuthController::class, 'register']);
+
+
+Route::get('/auth/login', function () {return view('auth.login');})->middleware('guest')->name('login');
+Route::post('/auth/login', [AuthController::class, 'login'])->middleware('guest');
+Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
