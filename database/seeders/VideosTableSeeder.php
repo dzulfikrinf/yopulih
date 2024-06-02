@@ -15,7 +15,7 @@ class VideosTableSeeder extends Seeder
     {
         DB::table('videos')->insert([
             [
-                'url' => 'http://example.com/video1',
+                'url' => 'https://www.youtube.com/embed/OO2kPK5-qno?si=3VrKCh1A0epr4PCH',
                 'title' => 'First Video',
                 'description' => 'Description of the first video.',
                 'created_at' => now(),

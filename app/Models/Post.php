@@ -18,9 +18,9 @@ class Post extends Model
         'updated_at',
     ];
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user');
     }
 
     public function comments()

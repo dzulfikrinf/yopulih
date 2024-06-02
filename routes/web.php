@@ -56,12 +56,17 @@ Route::get('videos/{id}', [VideoController::class, 'show']);
 Route::get('articles', [ArticleController::class, 'index']);
 Route::get('articles/{id}', [ArticleController::class, 'show']);
 
-Route::get('/auth/register', function () {return view('auth.register');});
-Route::post('/auth/register', [AuthController::class, 'register']);
-
+Route::get('/auth/register', function () {return view('auth.register');})->middleware('guest')->name('register');
+Route::post('/auth/register', [AuthController::class, 'register'])->middleware('guest');
 
 Route::get('/auth/login', function () {return view('auth.login');})->middleware('guest')->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->middleware(['auth', 'App\\Http\\Middleware\\CheckUserRole:1'])->name('dashboard.admin');
+Route::get('/dashboard/video-artikel', [DashboardController::class, 'videoArtikel'])->middleware('auth')->name('dashboard.videoArtikel');
+Route::get('/dashboard/video-artikel/{slug}', [DashboardController::class, 'videoArtikelSlug'])->middleware('auth')->name('dashboard.videoArtikelSlug');
+Route::get('/dashboard/forum', [DashboardController::class, 'forum'])->middleware('auth')->name('dashboard.forum');
+Route::get('/dashboard/forum/{id}', [DashboardController::class, 'forumSlug'])->middleware('auth')->name('dashboard.forumSlug');
+Route::get('/dashboard/stress-test', [DashboardController::class, 'stressTest'])->middleware('auth')->name('dashboard.stressTest');

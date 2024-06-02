@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('comments')->get();
+        $posts = Post::with('comments.author')->with('author')->get();
         return response()->json($posts);
     }
 
